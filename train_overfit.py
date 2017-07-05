@@ -145,16 +145,19 @@ def _main(args):
     detectors_mask = np.expand_dims(detectors_mask, axis=0)
     matching_true_boxes = np.expand_dims(matching_true_boxes, axis=0)
 
+#    num_steps = 1000
     num_steps = 1000
     # TODO: For full training, put preprocessing inside training loop.
-    # for i in range(num_steps):
-    #     loss = model.train_on_batch(
-    #         [image_data, boxes, detectors_mask, matching_true_boxes],
-    #         np.zeros(len(image_data)))
-    model.fit([image_data, boxes, detectors_mask, matching_true_boxes],
-              np.zeros(len(image_data)),
-              batch_size=1,
-              epochs=num_steps)
+    for i in range(num_steps):
+         loss = model.train_on_batch(
+             [image_data, boxes, detectors_mask, matching_true_boxes],
+             np.zeros(len(image_data)))
+         print(i, loss)
+    #model.fit([image_data, boxes, detectors_mask, matching_true_boxes],
+    #         np.zeros(len(image_data)),
+    #          batch_size=1,
+    #          epochs=num_steps)
+    model_body.layers[1].save_weights('vgg_yolo.h5')
     model.save_weights('overfit_weights.h5')
 
     # Create output variables for prediction.

@@ -60,4 +60,5 @@ def vgg_yolo_model():
 
 def yolo_body(inputs, num_anchors, num_classes):
     x = vgg_yolo_model()
+    x.load_weights('weight/vgg_yolo_def.h5')
     return Model(inputs, x(inputs))
