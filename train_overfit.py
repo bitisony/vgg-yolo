@@ -136,6 +136,7 @@ def _main(args):
          matching_boxes_input], model_loss)
     model.compile(
         optimizer='adam', loss={
+
             'yolo_loss': lambda y_true, y_pred: y_pred
         })  # This is a hack to use the custom loss function in the last layer.
 

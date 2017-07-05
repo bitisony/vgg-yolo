@@ -36,4 +36,12 @@ def darknet_body():
         MaxPooling2D(),
         bottleneck_x2_block(1024, 512))
 
-
+017-07-05 16:55:33.857271: I tensorflow/core/kernels/logging_ops.cc:79] yolo_loss, conf_loss, objects_loss, no_objects_loss, no_object_weightsm class_loss, box_coord_loss:[107.46857][213.25][5][208.25][833][1.9095052e-09][1.6871483]
+133 107.469
+2017-07-05 16:55:33.941505: I tensorflow/core/kernels/logging_ops.cc:79] yolo_loss, conf_loss, objects_loss, no_objects_loss, no_object_weightsm class_loss, box_coord_loss:[107.46857][213.25][5][208.25][833][2.9552032e-08][1.6871483]
+134 107.469
+2017-07-05 16:55:34.025948: I tensorflow/core/kernels/logging_ops.cc:79] yolo_loss, conf_loss, objects_loss, no_objects_loss, no_object_weightsm class_loss, box_coord_loss:[107.34357][213][5][208][832][2.0600384e-08][1.6871483]
+135 107.344
+2017-07-05 16:55:34.109740: I tensorflow/core/kernels/logging_ops.cc:79] yolo_loss, conf_loss, objects_loss, no_objects_loss, no_object_weightsm class_loss, box_coord_loss:[107.59357][213.5][5][208.5][834][3.7910136e-06][1.6871483]
+136 107.594
+2017-07-05 16:55:34.193989
