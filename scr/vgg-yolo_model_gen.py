@@ -1,5 +1,6 @@
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, InputLayer, Dropout
+from keras.layers.normalization import BatchNormalization
 
 # 入力サイズ等はここを変更
 width = 416
@@ -50,8 +51,11 @@ def vgg_yolo_model():
                      padding='same', kernel_size=(3, 3), strides=(1, 1)))
     model.add(MaxPooling2D(pool_size=(2, 2), padding='same', strides=(2, 2)))
 
+    #natu
+    model.add(BatchNormalization())
+
     model.add(Dropout(0.25))
-    model.add(Conv2D(125, use_bias=True, data_format="channels_last", activation='relu',
+    model.add(Conv2D(125, use_bias=True, data_format="channels_last", #activation='liner',
                      padding='same', kernel_size=(1, 1), strides=(1, 1), kernel_initializer='random_uniform'))
 
     return model

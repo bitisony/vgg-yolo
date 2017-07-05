@@ -297,7 +297,7 @@ def yolo_eval(yolo_outputs,
               iou_threshold=.5,
               classes=20):
     """Evaluate YOLO model on given input batch and return filtered boxes."""
-    box_xy, box_wh, box_confidence, box_class_probs = yolo_head(yolo_outputs, voc_anchors, classes)
+    box_xy, box_wh, box_confidence, box_class_probs = cqt_yolo_head(yolo_outputs, voc_anchors, classes)
     boxes_t = yolo_boxes_to_corners(box_xy, box_wh)
     boxes, scores, classes = yolo_filter_boxes(
         boxes_t, box_confidence, box_class_probs, threshold=score_threshold)
@@ -328,7 +328,7 @@ def cqt_yolo_eval(yolo_outputs,
               iou_threshold=.5,
               classes=20):
     """Evaluate YOLO model on given input batch and return filtered boxes."""
-    box_xy, box_wh, box_confidence, box_class_probs = yolo_head(yolo_outputs, voc_anchors, classes)
+    box_xy, box_wh, box_confidence, box_class_probs = cqt_yolo_head(yolo_outputs, voc_anchors, classes)
     boxes_t = yolo_boxes_to_corners(box_xy, box_wh)
     boxes, scores, classes = yolo_filter_boxes(
         boxes_t, box_confidence, box_class_probs, threshold=score_threshold)

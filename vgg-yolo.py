@@ -13,9 +13,9 @@ from yad2k.yad2k_yolo import yolo_eval, voc_label, cqt_yolo_eval
 from yad2k.model import yolo_body, vgg_yolo_model
 
 
-#img_file = '../img/person.jpg'
+img_file = 'img/person.jpg'
 #img_file = '../img/dog.jpg'
-img_file = 'img/000058.jpg'
+#img_file = 'img/000058.jpg'
 
 # 入力サイズ等はここを変更
 width = 416
@@ -30,15 +30,15 @@ classes = 20
 file_post_fix = ''
 
 # モデルの構築
-tiny_yolo_model = vgg_yolo_model()
+yolo_model = vgg_yolo_model()
 
-tiny_yolo_model.load_weights('vgg_yolo.h5')
+yolo_model.load_weights('vgg_yolo.h5')
 
-with open('tiny-yolo.json', 'w') as fp:
-    json_string = tiny_yolo_model.to_json()
+with open('vgg-yolo.json', 'w') as fp:
+    json_string = yolo_model.to_json()
     fp.write(json_string)
 
-tiny_yolo_model.summary()
+yolo_model.summary()
 
 
 # run yolo
@@ -47,7 +47,7 @@ resized_image = image.resize((width, height), Image.BICUBIC)
 image_data = np.array(resized_image, dtype='float32') / 255.0
 x = np.expand_dims(image_data, axis=0)
 
-preds = tiny_yolo_model.predict(x)
+preds = yolo_model.predict(x)
 probs = np.zeros((r_h * r_w * r_n, classes+1), dtype=np.float)
 thresh = 0.3
 
