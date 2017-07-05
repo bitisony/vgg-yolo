@@ -9,6 +9,7 @@ r_h = 13
 r_n = 5
 classes = 20
 
+
 def vgg_yolo_model():
     model = Sequential()
     model.add(InputLayer(input_shape=(width, height, 3)))

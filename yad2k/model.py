@@ -1,6 +1,7 @@
 
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, InputLayer, Dropout
+from keras.models import Model
 
 # 入力サイズ等はここを変更
 width = 416
@@ -56,5 +57,7 @@ def vgg_yolo_model():
 
     return model
 
+
 def yolo_body(inputs, num_anchors, num_classes):
-    return vgg_yolo_model()
+    x = vgg_yolo_model()
+    return Model(inputs, x(inputs))

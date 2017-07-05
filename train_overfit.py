@@ -118,7 +118,7 @@ def _main(args):
 
     # Create model body.
     model_body = yolo_body(image_input, len(anchors), len(class_names))
-    model_body = Model(image_input, model_body.output)
+#    model_body = Model(image_input, model_body.output)
     # Place model loss on CPU to reduce GPU memory usage.
     with tf.device('/cpu:0'):
         # TODO: Replace Lambda with custom Keras layer for loss.

@@ -1,0 +1,39 @@
+
+def yolo_body(inputs, num_anchors, num_classes):
+    """Create YOLO_V2 model CNN body in Keras."""
+    darknet = Model(inputs, darknet_body()(inputs)) # <- inputが入力、darknet_bodyにinputを入れたものが出力
+    conv20 = compose(
+        DarknetConv2D_BN_Leaky(1024, (3, 3)),
+        DarknetConv2D_BN_Leaky(1024, (3, 3)))(darknet.output)
+
+    conv13 = darknet.layers[43].output
+    conv21 = DarknetConv2D_BN_Leaky(64, (1, 1))(conv13)
+    # TODO: Allow Keras Lambda to use func arguments for output_shape?
+    conv21_reshaped = Lambda(
+        space_to_depth_x2,
+        output_shape=space_to_depth_x2_output_shape,
+        name='space_to_depth')(conv21)
+
+    x = concatenate([conv21_reshaped, conv20])
+    x = DarknetConv2D_BN_Leaky(1024, (3, 3))(x)
+    x = DarknetConv2D(num_anchors * (num_classes + 5), (1, 1))(x)
+    return Model(inputs, x)
+
+
+
+def darknet_body():
+    """Generate first 18 conv layers of Darknet-19."""
+    return compose(
+        DarknetConv2D_BN_Leaky(32, (3, 3)),
+        MaxPooling2D(),
+        DarknetConv2D_BN_Leaky(64, (3, 3)),
+        MaxPooling2D(),
+        bottleneck_block(128, 64),
+        MaxPooling2D(),
+        bottleneck_block(256, 128),
+        MaxPooling2D(),
+        bottleneck_x2_block(512, 256),
+        MaxPooling2D(),
+        bottleneck_x2_block(1024, 512))
+
+
